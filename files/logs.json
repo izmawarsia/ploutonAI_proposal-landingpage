@@ -1,0 +1,68 @@
+[
+  {
+    "id": "evt_001",
+    "workflow": "Bank Reconciliation",
+    "transaction_id": "TX-2041",
+    "agent_id": "Agent-04",
+    "description": "FX rate variance detected on TX-2041 during bank reconciliation, difference of $42.10 exceeded the automatic threshold of $10.00 between NetSuite and the bank statement",
+    "status": "flagged",
+    "amount_variance": 42.10,
+    "threshold": 10.00,
+    "replay_timestamp_seconds": 134
+  },
+  {
+    "id": "evt_002",
+    "workflow": "Accounts Payable",
+    "transaction_id": "INV-7788",
+    "agent_id": "Agent-01",
+    "description": "Duplicate payment flagged on invoice INV-7788, held for controller approval",
+    "status": "flagged",
+    "amount_variance": null,
+    "threshold": null,
+    "replay_timestamp_seconds": 58
+  },
+  {
+    "id": "evt_003",
+    "workflow": "Month-End Close",
+    "transaction_id": "JE-4521",
+    "agent_id": "Agent-02",
+    "description": "FX variance of 0.4% detected on journal entry JE-4521, escalated for controller review",
+    "status": "flagged",
+    "amount_variance": 18.25,
+    "threshold": 15.00,
+    "replay_timestamp_seconds": 41
+  },
+  {
+    "id": "evt_004",
+    "workflow": "Bank Reconciliation",
+    "transaction_id": "TX-1187",
+    "agent_id": "Agent-04",
+    "description": "Bank reconciliation run completed successfully for TX-1187 with no exceptions",
+    "status": "completed",
+    "amount_variance": null,
+    "threshold": null,
+    "replay_timestamp_seconds": null
+  },
+  {
+    "id": "evt_005",
+    "workflow": "Accounts Payable",
+    "transaction_id": "INV-9012",
+    "agent_id": "Agent-01",
+    "description": "Partial payment of $2,300 received against invoice INV-9012, remaining balance unmatched",
+    "status": "flagged",
+    "amount_variance": null,
+    "threshold": null,
+    "replay_timestamp_seconds": 97
+  },
+  {
+    "id": "evt_006",
+    "workflow": "Month-End Close",
+    "transaction_id": "PB-201",
+    "agent_id": "Agent-02",
+    "description": "Approval checkpoint triggered on payment batch PB-201 exceeding the fifty thousand dollar threshold",
+    "status": "pending_approval",
+    "amount_variance": null,
+    "threshold": 50000,
+    "replay_timestamp_seconds": 12
+  }
+]
