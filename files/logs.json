@@ -1,0 +1,38 @@
+[
+  {
+    "workflow": "Bank Reconciliation",
+    "transaction_id": "TX-2041",
+    "description": "FX rate variance detected on TX-2041 during bank reconciliation. The difference of $42.10 exceeded the allowed threshold of $10.00 between NetSuite and the bank statement.",
+    "status": "flagged"
+  },
+  {
+    "workflow": "Accounts Payable",
+    "transaction_id": "INV-7788",
+    "description": "Duplicate payment detected on invoice INV-7788. The transaction was flagged for controller review.",
+    "status": "flagged"
+  },
+  {
+    "workflow": "Month-End Close",
+    "transaction_id": "JE-4521",
+    "description": "Journal entry JE-4521 showed an FX variance of 0.4%, exceeding the review threshold during the month-end close.",
+    "status": "flagged"
+  },
+  {
+    "workflow": "Bank Reconciliation",
+    "transaction_id": "TX-1187",
+    "description": "Bank reconciliation completed successfully for transaction TX-1187 with no exceptions detected.",
+    "status": "completed"
+  },
+  {
+    "workflow": "Accounts Payable",
+    "transaction_id": "INV-9012",
+    "description": "Partial payment was received for invoice INV-9012. The remaining balance could not be matched automatically.",
+    "status": "flagged"
+  },
+  {
+    "workflow": "Month-End Close",
+    "transaction_id": "PB-201",
+    "description": "Payment batch PB-201 exceeded the approval threshold and requires controller approval before processing.",
+    "status": "pending_approval"
+  }
+]
