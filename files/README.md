@@ -10,7 +10,7 @@ cp .env.example .env
 ```
 uvicorn main:app --reload
 ```
-Server `http://localhost:8000` pe chalega. (FastAPI default port 8000 hai, Node wala 3001 nahi)
+
 
 Test karne ke liye (PowerShell):
 ```
