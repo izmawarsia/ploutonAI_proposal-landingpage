@@ -1,6 +1,0 @@
-fastapi
-uvicorn
-beautifulsoup4
-sentence-transformers
-scikit-learn
-python-multipart
