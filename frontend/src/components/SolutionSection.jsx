@@ -5,7 +5,6 @@ import docDiagram from "../assets/document_understanding.jpeg"
 import performanceDiagram from "../assets/Agent Performance Analytics Architecture.jpeg"
 
 const API_BASE = "https://plouton-ai-proposal-landingpage-hi5.vercel.app"
-// FIX 1: Exact Base URL without trailing /api/chat to avoid duplication
 const NLP_API_URL = "https://nlp-audit-wsr6-git-main-aerox1.vercel.app/api/chat"
 
 const defaultOldHtml = `<div class="app"><span class="badge">pending approval</span></div>`
