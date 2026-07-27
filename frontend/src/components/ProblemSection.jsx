@@ -10,10 +10,10 @@ const problems = [
 ]
 
 const riskChartData = [
-  { name: "Interface Drift", severity: 80, fill: "#f59e0b" },   
-  { name: "Integration Challenges", severity: 60, fill: "#3b82f6" }, 
-  { name: "Exceptions", severity: 65, fill: "#3b82f6" },             
-  { name: "Trust & Control", severity: 85, fill: "#f59e0b" },    
+  { name: "Interface Drift", severity: 80, fill: "#f59e0b" },
+  { name: "Integration Challenges", severity: 60, fill: "#3b82f6" },
+  { name: "Exceptions", severity: 65, fill: "#3b82f6" },
+  { name: "Trust & Control", severity: 85, fill: "#f59e0b" },
   { name: "Credential Security", severity: 90, fill: "#f59e0b" },
 ]
 
@@ -23,16 +23,14 @@ function ProblemSection() {
       <span className="inline-block text-xs uppercase tracking-widest text-slate-700 border border-slate-400 rounded-full px-4 py-1.5 mb-6">
         The Problem
       </span>
-      <h2 className="text-2xl md:text-4xl font-bold text-slate-900 max-w-2xl mb-4">
-        Where the system needs strengthening
+      <h2 className="text-2xl md:text-4xl font-bold max-w-2xl mb-4">
+        <span className="text-slate-900">Key Operational Bottlenecks</span>{" "}
+        <span className="text-blue-600">& Risk Areas</span>
       </h2>
       <p className="text-slate-500 max-w-2xl mb-14 leading-relaxed text-sm md:text-base">
-        Plouton AI has built a strong automation foundation. These are the
-        specific areas where additional resilience, control, and security
-        will elevate it to enterprise-grade.
+        Targeted friction points in browser-based AI execution that impact enterprise reliability.
       </p>
 
-      {/* Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mb-8">
         {problems.map((item, i) => (
           <motion.div
@@ -41,14 +39,14 @@ function ProblemSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.4, delay: i * 0.05 }}
-            className="relative bg-white rounded-xl p-6 shadow-sm"
+            className="relative bg-white rounded-xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default"
           >
             {item.badge && (
               <span className="absolute top-4 right-4 text-[10px] bg-slate-100 text-slate-500 px-2 py-1 rounded-full">
                 {item.badge}
               </span>
             )}
-            <h3 className="text-base font-semibold text-slate-900 mb-3 pr-8">{item.title}</h3>
+            <h3 className="text-base font-bold text-slate-900 mb-3 pr-8">{item.title}</h3>
             <p className="text-slate-500 text-sm leading-relaxed mb-5">{item.description}</p>
             <div className="flex justify-between items-center">
               <span className={`flex items-center gap-1.5 text-xs font-medium ${item.tagColor}`}>
@@ -57,56 +55,46 @@ function ProblemSection() {
               </span>
               <div className="flex gap-1">
                 {[...Array(4)].map((_, b) => (
-                  <span
-                    key={b}
-                    className={`w-4 h-1 rounded-full ${b < item.bars ? "bg-slate-700" : "bg-slate-200"}`}
-                  ></span>
+                  <span key={b} className={`w-4 h-1 rounded-full ${b < item.bars ? "bg-slate-700" : "bg-slate-200"}`}></span>
                 ))}
               </div>
             </div>
           </motion.div>
         ))}
       </div>
-{/* Chart */}
-<motion.div
-  initial={{ opacity: 0, y: 20 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true, amount: 0.2 }}
-  transition={{ duration: 0.5 }}
-  className="bg-white border border-slate-200 rounded-2xl p-5 max-w-6xl"
->
-  <div className="flex justify-between items-center mb-2">
-    <p className="text-sm font-semibold text-slate-700">Risk Severity Overview</p>
-    <span className="text-[10px] bg-amber-100 text-amber-600 px-2 py-1 rounded-full">
-      Placeholder Data
-    </span>
-  </div>
 
-  <div className="flex gap-4 mb-4">
-    <span className="flex items-center gap-1.5 text-[11px] text-slate-500">
-      <span className="w-2 h-2 rounded-full bg-amber-500"></span> Risk Area
-    </span>
-    <span className="flex items-center gap-1.5 text-[11px] text-slate-500">
-      <span className="w-2 h-2 rounded-full bg-blue-500"></span> Operational Challenge
-    </span>
-  </div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.5 }}
+        className="bg-white border border-slate-200 rounded-2xl p-5 max-w-6xl"
+      >
+     <div className="mb-2">
+      <p className="text-sm font-semibold text-slate-700">Risk Severity Overview</p>
+      </div>
 
-  <div className="w-full h-44 md:h-52">
-    <ResponsiveContainer width="100%" height="100%">
-      <BarChart data={riskChartData} barSize={28}>
-        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-        <XAxis dataKey="name" tick={{ fontSize: 10, fill: "#94a3b8" }} />
-        <YAxis tick={{ fontSize: 10, fill: "#94a3b8" }} />
-        <Tooltip />
-        <Bar dataKey="severity" radius={[4, 4, 0, 0]} />
-      </BarChart>
-    </ResponsiveContainer>
-  </div>
+        <div className="flex gap-4 mb-4">
+          <span className="flex items-center gap-1.5 text-[11px] text-slate-500">
+            <span className="w-2 h-2 rounded-full bg-amber-500"></span> Risk Area
+          </span>
+          <span className="flex items-center gap-1.5 text-[11px] text-slate-500">
+            <span className="w-2 h-2 rounded-full bg-blue-500"></span> Operational Challenge
+          </span>
+        </div>
 
-  <p className="text-[10px] text-slate-400 mt-3">
-    * Illustrative severity scores — pending Finance/Research validation.
-  </p>
-</motion.div>
+        <div className="w-full h-44 md:h-52">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={riskChartData} barSize={28}>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+              <XAxis dataKey="name" tick={{ fontSize: 10, fill: "#94a3b8" }} />
+              <YAxis tick={{ fontSize: 10, fill: "#94a3b8" }} />
+              <Tooltip />
+              <Bar dataKey="severity" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </motion.div>
     </section>
   )
 }

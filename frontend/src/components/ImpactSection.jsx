@@ -10,12 +10,11 @@ const impactCards = [
   { icon: TrendingUp, title: "Scalability", description: "A structured control layer as workflows and ERP environments grow." },
 ]
 
-const revenueChartData = [
-  { year: "2022", revenue: 0.25 },
-  { year: "2023", revenue: 0.9 },
-  { year: "2024", revenue: 2.5 },
-  { year: "2025", revenue: 6.0 },
-  { year: "2026", revenue: 12.5 },
+const comparisonData = [
+  { metric: "Interface Reliability", plouton: 60, aerox: 92 },
+  { metric: "Exception Handling", plouton: 45, aerox: 88 },
+  { metric: "Audit Visibility", plouton: 70, aerox: 95 },
+  { metric: "Session Security", plouton: 65, aerox: 90 },
 ]
 
 function ImpactSection() {
@@ -54,7 +53,7 @@ function ImpactSection() {
         })}
       </div>
 
-     {/* Chart */}
+{/* Chart */}
 <motion.div
   initial={{ opacity: 0, y: 20 }}
   whileInView={{ opacity: 1, y: 0 }}
@@ -62,28 +61,29 @@ function ImpactSection() {
   transition={{ duration: 0.5 }}
   className="bg-slate-50 border border-slate-100 rounded-2xl p-5 md:p-8 max-w-6xl"
 >
-  <div className="flex justify-between items-center mb-2">
-    <p className="text-sm font-semibold text-slate-700">Estimated Revenue Growth (USD, Millions)</p>
-    <span className="text-[10px] bg-amber-100 text-amber-600 px-2 py-1 rounded-full">
-      Estimated Data
+  <p className="text-sm font-semibold text-slate-700 mb-2">
+    Plouton (Current) vs. Plouton + Aerox (Enhanced)
+  </p>
+  <div className="flex gap-4 mb-4">
+    <span className="flex items-center gap-1.5 text-[11px] text-slate-500">
+      <span className="w-2 h-2 rounded-full bg-slate-400"></span> Plouton Today
+    </span>
+    <span className="flex items-center gap-1.5 text-[11px] text-slate-500">
+      <span className="w-2 h-2 rounded-full bg-blue-600"></span> With Aerox Enhancements
     </span>
   </div>
   <div className="w-full h-56 md:h-72">
     <ResponsiveContainer width="100%" height="100%">
-      <BarChart data={revenueChartData} barSize={36}>
+      <BarChart data={comparisonData} barGap={6}>
         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-        <XAxis dataKey="year" tick={{ fontSize: 11, fill: "#64748b" }} />
-        <YAxis tick={{ fontSize: 11, fill: "#64748b" }} />
-        <Tooltip formatter={(value) => [`$${value}M`, "Revenue"]} />
-        <Bar dataKey="revenue" fill="#2563eb" radius={[4, 4, 0, 0]} />
+        <XAxis dataKey="metric" tick={{ fontSize: 10, fill: "#64748b" }} />
+        <YAxis tick={{ fontSize: 11, fill: "#64748b" }} unit="%" />
+        <Tooltip formatter={(value) => [`${value}%`, ""]} />
+        <Bar dataKey="plouton" fill="#cbd5e1" name="Plouton Today" radius={[4, 4, 0, 0]} />
+        <Bar dataKey="aerox" fill="#2563eb" name="With Aerox Enhancements" radius={[4, 4, 0, 0]} />
       </BarChart>
     </ResponsiveContainer>
   </div>
-  <p className="text-[10px] text-slate-400 mt-4">
-    * These figures are not official financial data. They are a reasonable
-    estimate for financial modeling purposes only, as Plouton AI has not
-    released audited revenue numbers.
-  </p>
 </motion.div>
     </section>
   )
