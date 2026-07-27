@@ -42,7 +42,7 @@ function ProblemSection() {
             className="relative bg-white rounded-xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default"
           >
             {item.badge && (
-              <span className="absolute top-4 right-4 text-[10px] bg-slate-100 text-slate-500 px-2 py-1 rounded-full">
+              <span className="absolute top-4 right-4 text-[10px] bg-slate-100 text-red-500 px-2 py-1 rounded-full">
                 {item.badge}
               </span>
             )}

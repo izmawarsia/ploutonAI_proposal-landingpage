@@ -1,18 +1,22 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import exceptionDiagram from "../assets/exceptional inteeligence.jpeg"
+import docDiagram from "../assets/document_understanding.jpeg"
+import performanceDiagram from "../assets/Agent Performance Analytics Architecture.jpeg"
 
 const API_BASE = "https://plouton-ai-proposal-landingpage-hi5.vercel.app"
-const NLP_API_BASE = "https://nlp-audit-wsr6-git-main-aerox1.vercel.app"
+// FIX 1: Exact Base URL without trailing /api/chat to avoid duplication
+const NLP_API_URL = "https://nlp-audit-wsr6-git-main-aerox1.vercel.app/api/chat"
 
 const defaultOldHtml = `<div class="app"><span class="badge">pending approval</span></div>`
 const defaultNewHtml = `<div class="app"><span class="badge">verified</span></div>`
 
 const solutions = [
   { title: "Self-Healing Agents", tag: "POC", interactive: true, description: "Auto-adapts when interfaces change.", action: "Open Demo" },
-  { title: "Exception Intelligence", tag: "ARCH", interactive: false, description: "Flags likely causes before human review.", action: "View Architecture", flow: ["Transaction Data", "Matching / Analysis", "Anomaly Detection", "Possible Cause", "Human Review"] },
-  { title: "Smart Document Understanding", tag: "ARCH", interactive: false, description: "Extracts invoice & remittance data.", action: "View Architecture", flow: ["Document", "OCR / Document Processing", "Information Extraction", "Structured Data", "Finance Workflow"] },
+  { title: "Exception Intelligence", tag: "ARCH", interactive: false, description: "Flags likely causes before human review.", action: "View Architecture", diagram: exceptionDiagram },
+  { title: "Smart Document Understanding", tag: "ARCH", interactive: false, description: "Extracts invoice & remittance data.", action: "View Architecture", diagram: docDiagram },
   { title: "Natural-Language Audit Assistant", tag: "POC", interactive: true, description: "Ask questions about any agent run.", action: "Open Demo" },
-  { title: "Agent Performance Analytics", tag: "ARCH", interactive: false, description: "AI summaries of accuracy & time saved.", action: "View Architecture", flow: ["Agent Runs", "Metrics Collection", "Analysis", "Performance Dashboard", "ROI Insights"] },
+  { title: "Agent Performance Analytics", tag: "ARCH", interactive: false, description: "AI summaries of accuracy & time saved.", action: "View Architecture", diagram: performanceDiagram },
 ]
 
 const complementFlow = [
@@ -59,7 +63,8 @@ function SolutionSection() {
       const data = await res.json()
       setResult(data)
     } catch (err) {
-      setError("Could not reach the Self-Healing Agent service. Please try again.",err)
+      console.error(err)
+      setError("Could not reach the Self-Healing Agent service. Please try again.")
     } finally {
       setLoading(false)
     }
@@ -73,21 +78,25 @@ function SolutionSection() {
     setChatLoading(true)
 
     try {
-      const res = await fetch(`${NLP_API_BASE}/api/chat`, {
+      // FIX 2: Correct fetch endpoint call with clean single URL
+      const res = await fetch(NLP_API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ session_id: sessionId, message: userMessage }),
       })
-      if (!res.ok) throw new Error("Chat API failed")
+      
+      if (!res.ok) throw new Error(`Chat API failed with status ${res.status}`)
+      
       const data = await res.json()
       setChatMessages((prev) => [
         ...prev,
         { role: "assistant", text: data.nlp_response, entities: data.query_entities },
       ])
     } catch (err) {
+      console.error(err)
       setChatMessages((prev) => [
         ...prev,
-        { role: "assistant", text: "Sorry, I couldn't process that. Please try again.",err },
+        { role: "assistant", text: "Sorry, I couldn't process that. Please try again." },
       ])
     } finally {
       setChatLoading(false)
@@ -209,7 +218,7 @@ function SolutionSection() {
                     </div>
                   </div>
 
-                  {/* Live preview - updates as user types, even before Analyze */}
+                  {/* Live preview */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
                     <div>
                       <p className="text-xs text-slate-500 mb-1">Old Page (Preview)</p>
@@ -335,19 +344,12 @@ function SolutionSection() {
                   </div>
                 </div>
               ) : (
-                <div className="flex flex-col">
-                  {selected.flow.map((step, i) => (
-                    <div key={i}>
-                      <div className="bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-sm text-slate-700 text-center">
-                        {step}
-                      </div>
-                      {i < selected.flow.length - 1 && (
-                        <div className="flex justify-center py-1">
-                          <span className="text-slate-300">↓</span>
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                <div>
+                  <img
+                    src={selected.diagram}
+                    alt={selected.title}
+                    className="w-full rounded-lg border border-slate-200"
+                  />
                   <p className="text-[10px] uppercase tracking-widest text-amber-500 mt-4">
                     Proposed Architecture — Solution Concept
                   </p>
