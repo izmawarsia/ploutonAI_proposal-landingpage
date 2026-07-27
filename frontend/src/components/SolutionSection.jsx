@@ -7,8 +7,44 @@ import performanceDiagram from "../assets/Agent Performance Analytics Architectu
 const API_BASE = "https://plouton-ai-proposal-landingpage-hi5.vercel.app"
 const NLP_API_URL = "https://nlp-audit-wsr6-git-main-aerox1.vercel.app/api/chat"
 
-const defaultOldHtml = `<div class="app"><span class="badge">pending approval</span></div>`
-const defaultNewHtml = `<div class="app"><span class="badge">verified</span></div>`
+// Enterprise UI Preview Templates for Pitch Demo
+const defaultOldHtml = `<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 p-3 font-sans text-xs">
+  <div class="max-w-xs mx-auto bg-white rounded-xl shadow-sm border border-slate-200 p-3">
+    <div class="flex justify-between items-center mb-2">
+      <span class="font-bold text-slate-800">ERP Workflow #204</span>
+      <span id="status-badge" class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-medium text-[10px]">Pending Review</span>
+    </div>
+    <div class="space-y-1 text-slate-500 text-[11px]">
+      <div class="flex justify-between"><span>Vendor:</span> <strong class="text-slate-700">Acme Corp</strong></div>
+      <div class="flex justify-between"><span>Amount:</span> <strong class="text-slate-700">$14,250.00</strong></div>
+    </div>
+  </div>
+</body>
+</html>`
+
+const defaultNewHtml = `<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 p-3 font-sans text-xs">
+  <div class="max-w-xs mx-auto bg-white rounded-xl shadow-sm border border-slate-200 p-3">
+    <div class="flex justify-between items-center mb-2">
+      <span class="font-bold text-slate-800">ERP Workflow #204</span>
+      <span id="status-badge" class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-medium text-[10px]">Auto-Verified</span>
+    </div>
+    <div class="space-y-1 text-slate-500 text-[11px]">
+      <div class="flex justify-between"><span>Vendor:</span> <strong class="text-slate-700">Acme Corp</strong></div>
+      <div class="flex justify-between"><span>Amount:</span> <strong class="text-slate-700">$14,250.00</strong></div>
+    </div>
+  </div>
+</body>
+</html>`
 
 const solutions = [
   { title: "Self-Healing Agents", tag: "POC", interactive: true, description: "Auto-adapts when interfaces change.", action: "Open Demo" },
@@ -33,6 +69,7 @@ function SolutionSection() {
   // Self-Healing state
   const [oldHtml, setOldHtml] = useState(defaultOldHtml)
   const [newHtml, setNewHtml] = useState(defaultNewHtml)
+  const [showCodeEditor, setShowCodeEditor] = useState(false)
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState(null)
   const [error, setError] = useState(null)
@@ -63,7 +100,7 @@ function SolutionSection() {
       setResult(data)
     } catch (err) {
       console.error(err)
-      setError("Could not reach the Self-Healing Agent service. Please try again.")
+      setError("Could not reach the Agent Prediction service. Please try again.")
     } finally {
       setLoading(false)
     }
@@ -77,7 +114,6 @@ function SolutionSection() {
     setChatLoading(true)
 
     try {
-      // FIX 2: Correct fetch endpoint call with clean single URL
       const res = await fetch(NLP_API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -106,6 +142,7 @@ function SolutionSection() {
     setSelected(item)
     setResult(null)
     setError(null)
+    setShowCodeEditor(false)
     setChatMessages([])
     setChatInput("")
     if (item.title === "Self-Healing Agents") {
@@ -198,91 +235,121 @@ function SolutionSection() {
 
               {selected.title === "Self-Healing Agents" ? (
                 <div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
-                    <div>
-                      <label className="text-xs text-slate-500 mb-1 block">Old HTML</label>
-                      <textarea
-                        value={oldHtml}
-                        onChange={(e) => setOldHtml(e.target.value)}
-                        className="w-full h-24 text-xs font-mono border border-slate-200 rounded-lg p-2 outline-none focus:border-blue-400"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-xs text-slate-500 mb-1 block">New HTML</label>
-                      <textarea
-                        value={newHtml}
-                        onChange={(e) => setNewHtml(e.target.value)}
-                        className="w-full h-24 text-xs font-mono border border-slate-200 rounded-lg p-2 outline-none focus:border-blue-400"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Live preview */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-                    <div>
-                      <p className="text-xs text-slate-500 mb-1">Old Page (Preview)</p>
+                  {/* UI Visual Comparison for Pitch */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div className="border border-slate-200 rounded-xl p-3 bg-slate-50">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-xs font-bold text-slate-700">Original State (Old UI)</span>
+                        <span className="text-[10px] bg-slate-200 text-slate-600 px-2 py-0.5 rounded font-medium">v1.0</span>
+                      </div>
                       <iframe
                         srcDoc={oldHtml}
-                        title="old-preview-live"
-                        className="w-full h-24 border border-slate-200 rounded-lg bg-white"
-                        sandbox=""
+                        title="old-ui-preview"
+                        className="w-full h-36 border border-slate-200 rounded-lg bg-white shadow-inner"
                       />
                     </div>
-                    <div>
-                      <p className="text-xs text-slate-500 mb-1">New Page (Preview)</p>
+
+                    <div className="border border-slate-200 rounded-xl p-3 bg-slate-50">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-xs font-bold text-slate-700 font-semibold">Drifted State (New UI)</span>
+                        <span className="text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded font-medium">v2.0 Changed</span>
+                      </div>
                       <iframe
                         srcDoc={newHtml}
-                        title="new-preview-live"
-                        className="w-full h-24 border border-slate-200 rounded-lg bg-white"
-                        sandbox=""
+                        title="new-ui-preview"
+                        className="w-full h-36 border border-slate-200 rounded-lg bg-white shadow-inner"
                       />
                     </div>
                   </div>
 
-                  <button
-                    onClick={handleAnalyze}
-                    disabled={loading}
-                    className="bg-blue-600 hover:bg-blue-500 disabled:bg-blue-300 text-white text-sm font-medium px-5 py-2 rounded-lg transition-colors mb-4"
-                  >
-                    {loading ? "Analyzing..." : "Analyze / Self-Heal"}
-                  </button>
+                  {/* Prediction Trigger Controls */}
+                  <div className="flex items-center justify-between mb-4">
+                    <button
+                      onClick={handleAnalyze}
+                      disabled={loading}
+                      className="bg-blue-600 hover:bg-blue-500 disabled:bg-blue-300 text-white text-xs md:text-sm font-medium px-5 py-2.5 rounded-lg transition-colors shadow-sm"
+                    >
+                      {loading ? "Model Predicting Drift..." : "Run AI Drift & Binding Analysis"}
+                    </button>
 
-                  {error && <p className="text-sm text-red-500 mb-4">{error}</p>}
+                    <button
+                      onClick={() => setShowCodeEditor(!showCodeEditor)}
+                      className="text-xs text-slate-500 hover:text-blue-600 underline"
+                    >
+                      {showCodeEditor ? "Hide Source HTML" : "View Source HTML"}
+                    </button>
+                  </div>
 
+                  {/* Optional Raw HTML Code View */}
+                  {showCodeEditor && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4 bg-slate-900 p-3 rounded-lg">
+                      <div>
+                        <label className="text-[10px] text-slate-400 block mb-1">Old HTML Source</label>
+                        <textarea
+                          value={oldHtml}
+                          onChange={(e) => setOldHtml(e.target.value)}
+                          className="w-full h-24 text-[11px] font-mono bg-transparent text-slate-200 outline-none resize-none"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-slate-400 block mb-1">New HTML Source</label>
+                        <textarea
+                          value={newHtml}
+                          onChange={(e) => setNewHtml(e.target.value)}
+                          className="w-full h-24 text-[11px] font-mono bg-transparent text-slate-200 outline-none resize-none"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {error && <p className="text-xs text-red-500 mb-4">{error}</p>}
+
+                  {/* Model Prediction & Output Data Display */}
                   {result && result.results && (
-                    <div>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
-                        <div className="bg-slate-50 rounded-lg p-3 text-center">
-                          <p className="text-lg font-bold text-slate-800">{result.results.summary.changes_detected}</p>
-                          <p className="text-[10px] text-slate-400">Total Changes</p>
+                    <div className="border-t border-slate-200 pt-4 mt-2">
+                      <p className="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-3">
+                        Model Predictions & Change Detection Output
+                      </p>
+
+                      {/* High Level Metrics */}
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+                        <div className="bg-slate-50 rounded-lg p-2.5 text-center border border-slate-100">
+                          <p className="text-base font-bold text-slate-800">{result.results.summary.changes_detected}</p>
+                          <p className="text-[10px] text-slate-500">UI Changes Detected</p>
                         </div>
-                        <div className="bg-slate-50 rounded-lg p-3 text-center">
-                          <p className="text-lg font-bold text-slate-800">{result.results.summary.text_changes}</p>
-                          <p className="text-[10px] text-slate-400">Text Changes</p>
+                        <div className="bg-slate-50 rounded-lg p-2.5 text-center border border-slate-100">
+                          <p className="text-base font-bold text-slate-800">{result.results.summary.text_changes}</p>
+                          <p className="text-[10px] text-slate-500">Text/Binding Changes</p>
                         </div>
-                        <div className="bg-slate-50 rounded-lg p-3 text-center">
-                          <p className="text-lg font-bold text-slate-800">{result.results.summary.attribute_changes}</p>
-                          <p className="text-[10px] text-slate-400">Attribute Changes</p>
+                        <div className="bg-slate-50 rounded-lg p-2.5 text-center border border-slate-100">
+                          <p className="text-base font-bold text-slate-800">{result.results.summary.attribute_changes}</p>
+                          <p className="text-[10px] text-slate-500">Attribute Changes</p>
                         </div>
-                        <div className="bg-slate-50 rounded-lg p-3 text-center">
-                          <p className="text-lg font-bold text-green-600">{result.results.summary.self_healing_candidates}</p>
-                          <p className="text-[10px] text-slate-400">Self-Healing Candidates</p>
+                        <div className="bg-slate-50 rounded-lg p-2.5 text-center border border-slate-100">
+                          <p className="text-base font-bold text-green-600">{result.results.summary.self_healing_candidates}</p>
+                          <p className="text-[10px] text-slate-500">Verified Binding Candidates</p>
                         </div>
                       </div>
 
-                      <div className="space-y-3">
+                      {/* Detailed AI Predictions */}
+                      <div className="space-y-2">
                         {result.results.results.map((finding, i) => (
-                          <div key={i} className="border border-slate-200 rounded-lg p-4">
-                            <div className="flex justify-between items-center mb-2">
-                              <span className="text-xs font-semibold text-slate-700">{finding.change_type}</span>
-                              <span className="text-[10px] bg-green-100 text-green-600 px-2 py-1 rounded-full">{finding.status}</span>
+                          <div key={i} className="border border-slate-200 rounded-lg p-3 bg-white shadow-sm text-xs">
+                            <div className="flex justify-between items-center mb-1">
+                              <span className="font-semibold text-slate-800">{finding.change_type}</span>
+                              <span className="bg-green-100 text-green-700 text-[10px] px-2 py-0.5 rounded-full font-medium">
+                                {finding.status}
+                              </span>
                             </div>
                             {finding.changes.map((c, j) => (
-                              <p key={j} className="text-xs text-slate-500 mb-1">
-                                <span className="text-red-500">{c.old}</span> → <span className="text-green-600">{c.new}</span>
-                              </p>
+                              <div key={j} className="text-slate-600 my-1">
+                                <span className="text-red-500 line-through mr-1">{c.old}</span> →{" "}
+                                <span className="text-green-600 font-semibold ml-1">{c.new}</span>
+                              </div>
                             ))}
-                            <p className="text-[11px] text-slate-400 mt-2 italic">{finding.healing_action}</p>
+                            <p className="text-[11px] text-blue-600 bg-blue-50 p-1.5 rounded mt-2 font-mono">
+                              <strong>Agent Model Prediction:</strong> {finding.healing_action}
+                            </p>
                           </div>
                         ))}
                       </div>

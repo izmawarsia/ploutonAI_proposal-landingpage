@@ -11,15 +11,15 @@ const problems = [
 
 const riskChartData = [
   { name: "Interface Drift", severity: 80, fill: "#f59e0b" },
-  { name: "Integration Challenges", severity: 60, fill: "#3b82f6" },
+  { name: "Integration", severity: 60, fill: "#3b82f6" },
   { name: "Exceptions", severity: 65, fill: "#3b82f6" },
   { name: "Trust & Control", severity: 85, fill: "#f59e0b" },
-  { name: "Credential Security", severity: 90, fill: "#f59e0b" },
+  { name: "Credential Sec.", severity: 90, fill: "#f59e0b" },
 ]
 
 function ProblemSection() {
   return (
-    <section id="problems" className="px-6 md:px-10 py-20 md:py-24 bg-[#dce6f9]">
+    <section id="problems" className="px-4 sm:px-6 md:px-10 py-16 md:py-24 bg-[#dce6f9]">
       <span className="inline-block text-xs uppercase tracking-widest text-slate-700 border border-slate-400 rounded-full px-4 py-1.5 mb-6">
         The Problem
       </span>
@@ -27,7 +27,7 @@ function ProblemSection() {
         <span className="text-slate-900">Key Operational Bottlenecks</span>{" "}
         <span className="text-blue-600">& Risk Areas</span>
       </h2>
-      <p className="text-slate-500 max-w-2xl mb-14 leading-relaxed text-sm md:text-base">
+      <p className="text-slate-500 max-w-2xl mb-10 md:mb-14 leading-relaxed text-sm md:text-base">
         Targeted friction points in browser-based AI execution that impact enterprise reliability.
       </p>
 
@@ -39,23 +39,37 @@ function ProblemSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.4, delay: i * 0.05 }}
-            className="relative bg-white rounded-xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default"
+            className="bg-white rounded-xl p-5 md:p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default flex flex-col justify-between"
           >
-            {item.badge && (
-              <span className="absolute top-4 right-4 text-[10px] bg-slate-100 text-red-500 px-2 py-1 rounded-full">
-                {item.badge}
-              </span>
-            )}
-            <h3 className="text-base font-bold text-slate-900 mb-3 pr-8">{item.title}</h3>
-            <p className="text-slate-500 text-sm leading-relaxed mb-5">{item.description}</p>
-            <div className="flex justify-between items-center">
+            <div>
+              {/* Flexible Header for Badge & Title */}
+              <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
+                <h3 className="text-base font-bold text-slate-900 flex-1 min-w-[180px]">
+                  {item.title}
+                </h3>
+                {item.badge && (
+                  <span className="shrink-0 text-[10px] font-medium bg-red-50 text-red-500 border border-red-100 px-2.5 py-0.5 rounded-full whitespace-nowrap">
+                    {item.badge}
+                  </span>
+                )}
+              </div>
+
+              <p className="text-slate-500 text-sm leading-relaxed mb-5">
+                {item.description}
+              </p>
+            </div>
+
+            <div className="flex justify-between items-center pt-2">
               <span className={`flex items-center gap-1.5 text-xs font-medium ${item.tagColor}`}>
                 <span className={`w-1.5 h-1.5 rounded-full ${item.dot}`}></span>
                 {item.tag}
               </span>
               <div className="flex gap-1">
                 {[...Array(4)].map((_, b) => (
-                  <span key={b} className={`w-4 h-1 rounded-full ${b < item.bars ? "bg-slate-700" : "bg-slate-200"}`}></span>
+                  <span
+                    key={b}
+                    className={`w-3.5 sm:w-4 h-1 rounded-full ${b < item.bars ? "bg-slate-700" : "bg-slate-200"}`}
+                  ></span>
                 ))}
               </div>
             </div>
@@ -68,13 +82,13 @@ function ProblemSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.5 }}
-        className="bg-white border border-slate-200 rounded-2xl p-5 max-w-6xl"
+        className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 max-w-6xl overflow-hidden"
       >
-     <div className="mb-2">
-      <p className="text-sm font-semibold text-slate-700">Risk Severity Overview</p>
-      </div>
+        <div className="mb-2">
+          <p className="text-sm font-semibold text-slate-700">Risk Severity Overview</p>
+        </div>
 
-        <div className="flex gap-4 mb-4">
+        <div className="flex flex-wrap gap-3 sm:gap-4 mb-4">
           <span className="flex items-center gap-1.5 text-[11px] text-slate-500">
             <span className="w-2 h-2 rounded-full bg-amber-500"></span> Risk Area
           </span>
@@ -83,13 +97,15 @@ function ProblemSection() {
           </span>
         </div>
 
-        <div className="w-full h-44 md:h-52">
+        <div className="w-full h-48 md:h-52">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={riskChartData} barSize={28}>
+            <BarChart data={riskChartData} barSize={24} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-              <XAxis dataKey="name" tick={{ fontSize: 10, fill: "#94a3b8" }} />
-              <YAxis tick={{ fontSize: 10, fill: "#94a3b8" }} />
-              <Tooltip />
+              <XAxis dataKey="name" tick={{ fontSize: 9, fill: "#94a3b8" }} interval={0} />
+              <YAxis tick={{ fontSize: 9, fill: "#94a3b8" }} />
+              <Tooltip
+                contentStyle={{ borderRadius: "8px", fontSize: "12px", padding: "6px 10px" }}
+              />
               <Bar dataKey="severity" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
