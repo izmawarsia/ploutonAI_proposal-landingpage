@@ -1,4 +1,8 @@
 # ploutonAI_proposal-landingpage
+# deployed link:
+`https://plouton-ai-proposal-landingpage-mg7-smoky.vercel.app/`
+# NLP-AUDIT ASSISTANT DEPLOYED LINK:
+
 # Self-Healing ERP UI Detection API
 
 This service provides AI-powered detection for self-healing UI elements.
