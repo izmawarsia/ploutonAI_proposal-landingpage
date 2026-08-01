@@ -1,6 +1,9 @@
 # ploutonAI_proposal-landingpage
 # deployed link:
 `https://plouton-ai-proposal-landingpage-mg7-smoky.vercel.app/`
+
+Figma design: 
+`https://www.figma.com/design/bTP7NqnMo4G3akGBMqornq/Plouton.AI-Proposal?node-id=0-1&t=olnS5LE3ST090m8z-1`
 # NLP-AUDIT ASSISTANT DEPLOYED LINK:
 
 # Self-Healing ERP UI Detection API
