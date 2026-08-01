@@ -1,8 +1,12 @@
 # ploutonAI_proposal-landingpage
 # context:
+
 UI WORK
+
 FRONTEND
+
 AI AND BACKEND
+
 ALL REQUIRRED REPORTS ARE IN REPORTS FOLDER
 
 # UI DESIGN: SALEHA 
