@@ -1,12 +1,18 @@
 # ploutonAI_proposal-landingpage
-# deployed link:
-`https://plouton-ai-proposal-landingpage-mg7-smoky.vercel.app/`
+# context:
+UI WORK
+FRONTEND
+AI AND BACKEND
+ALL REQUIRRED REPORTS ARE IN REPORTS FOLDER
 
-Figma design: 
+# UI DESIGN: SALEHA 
+# Figma design: 
 `https://www.figma.com/design/bTP7NqnMo4G3akGBMqornq/Plouton.AI-Proposal?node-id=0-1&t=olnS5LE3ST090m8z-1`
-# NLP-AUDIT ASSISTANT DEPLOYED LINK:
 
-# Self-Healing ERP UI Detection API
+#  Frontend deployed link: HUZAIFA 
+`https://plouton-ai-proposal-landingpage-mg7-smoky.vercel.app/`
+# AI AND BACKEND WORK:
+# Self-Healing ERP UI Detection API : IZMA 
 
 This service provides AI-powered detection for self-healing UI elements.
 
